@@ -14,6 +14,20 @@ app.get('/', function(req, res){
     res.render('primeira_pagina')
 })
 
-app.listen(8081, function(){
+app.post('/cadastrar', function(req, res){
+    post.create({
+        nome: req.body.nome,
+        telefone: req.body.telefone,
+        origem: req.body.origem,
+        data_contato: req.body.data_contato,
+        observacao: req.body.observacao
+    }).then(function(){
+        res.redirect('/')
+    }).catch(function(erro){
+        res.send('Erro ao criar post: ' + erro)
+    })
+})
+
+app.listen(3000, function(){
     console.log("Servidor ativo!")
 })
