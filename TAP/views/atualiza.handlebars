@@ -1,0 +1,92 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding-top: 20px;
+        }
+        .container {
+            max-width: 600px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        textarea {
+            height: 80px;
+            resize: none;
+        }
+        button {
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 15px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+<body>
+
+        <nav class="navbar bg-primary navbar-expand-lg" data-bs-theme="dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">SISTEMA WEB</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-link active" aria-current="page" href="/">Cadastrar</a>
+                        <a class="nav-link" href="/consulta">Consultar</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class="container text-center">
+        <h1>Atualizar Agendamento</h1>
+
+        <form action="/editar/{{agendamento.id}}" method="POST">
+            <label>Nome:</label>
+            <input type="text" name="nome" value="{{agendamento.nome}}" required>
+
+            <label>Telefone:</label>
+            <input type="text" name="telefone" value="{{agendamento.telefone}}" required>
+
+            <label>Origem:</label>
+            <input type="text" name="origem" value="{{agendamento.origem}}" required>
+
+            <label>Data de Contato:</label>
+            <input type="date" name="data_contato" value="{{agendamento.data_contato}}" required>
+
+            <label>Observação:</label>
+            <textarea name="observacao">{{agendamento.observacao}}</textarea>
+
+            <button type="submit">Atualizar</button>
+        </form>
+    </div>
+
+</body>
+</html>
