@@ -2,9 +2,8 @@ const express = require("express");
 const app = express();
 const { engine } = require("express-handlebars");
 const bodyParser = require("body-parser");
-const Agendamentos = require("./models/post"); // Corrigido para o nome correto
+const Agendamentos = require("./models/post"); 
 
-// Configuração do Handlebars
 app.engine("handlebars", engine({
   defaultLayout: "main",
   runtimeOptions: {
@@ -14,12 +13,15 @@ app.engine("handlebars", engine({
 }));
 app.set("view engine", "handlebars");
 
-// Configuração do Body-Parser
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Rota inicial - Lista todos os registros
+
 app.get("/", async (req, res) => {
+  res.render("primeira_pagina");
+});
+
+app.get("/consulta", async (req, res) => {
   try {
     const posts = await Agendamentos.findAll();
     res.render("consulta", { posts });
@@ -28,12 +30,6 @@ app.get("/", async (req, res) => {
   }
 });
 
-// Rota para exibir o formulário de cadastro
-app.get("/cadastro", (req, res) => {
-  res.render("cadastro");
-});
-
-// Rota para cadastrar um novo registro
 app.post("/cadastrar", async (req, res) => {
   try {
     await Agendamentos.create({
@@ -49,7 +45,6 @@ app.post("/cadastrar", async (req, res) => {
   }
 });
 
-// Rota para exibir a página de atualização com os dados carregados
 app.get("/atualiza/:id", async (req, res) => {
   try {
     const agendamento = await Agendamentos.findByPk(req.params.id);
@@ -62,7 +57,6 @@ app.get("/atualiza/:id", async (req, res) => {
   }
 });
 
-// Rota para atualizar um agendamento
 app.post("/editar/:id", async (req, res) => {
   try {
     await Agendamentos.update(
@@ -81,17 +75,15 @@ app.post("/editar/:id", async (req, res) => {
   }
 });
 
-// Rota para excluir um registro
 app.get("/excluir/:id", async (req, res) => {
   try {
     await Agendamentos.destroy({ where: { id: req.params.id } });
-    res.redirect("/");
+    res.redirect("/consulta");
   } catch (erro) {
     res.send("Erro ao excluir o registro: " + erro);
   }
 });
 
-// Servidor rodando na porta 8081
 app.listen(8081, () => {
   console.log("Servidor rodando na url http://localhost:8081");
 });
